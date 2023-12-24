@@ -21,6 +21,7 @@ class Product(models.Model):
 class Category(models.Model):
     name_c = models.CharField(max_length=100, verbose_name='название', default='DEFAULT VALUE')
     description_c = models.CharField(max_length=100, verbose_name='описание', default='DEFAULT VALUE')
+    price_for_one = models.CharField(max_length=100, verbose_name='цена за штуку')
 
     def __str__(self):
         return f'{self.name_c} {self.description_c}'
