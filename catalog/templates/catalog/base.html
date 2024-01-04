@@ -9,26 +9,21 @@
 </head>
 <body>
 {% include 'catalog/includes/inc_main_menu.html' %}
-
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">{{ title }}</h1>
     <p class="lead">Магазин электроники - это отличный вариант что-нибудь купить</p>
 </div>
-
-
 <div class="container">
     <div class="row text-start">
         {% block content %}
         {% endblock %}
     </div>
-
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
         <div class="row">
             <div class="col-12 col-md">
                 Магазин электроники
                 <small class="d-block mb-3 text-muted">&copy; 2023 - {% now 'Y' %}</small>
             </div>
-
             <div class="col-6 col-md">
                 <h5>Дополнительно</h5>
                 <ul class="list-unstyled text-small">
