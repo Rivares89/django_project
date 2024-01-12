@@ -1,6 +1,9 @@
 {% extends 'catalog/base.html' %}
 {% load my_tags %}
 {% block content %}
+<div class="col-12 mb-5">
+    <a class="btn btn-outline-primary" href="{% url 'catalog:create' %}">Добавить продукт</a>
+</div>
 {% for object in object_list %}
 <div class="col-3">
     <div class="card mb-4 box-shadow">
@@ -22,6 +25,9 @@
                 <li>{{ object.description|truncatechars:50 }}</li>
             </ul>
             <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+            <a href="{% url 'catalog:view' object.pk %}"
+                                   class="btn btn-sm btn-outline-secondary">View</a>
+<!--            <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>-->
         </div>
     </div>
 </div>
