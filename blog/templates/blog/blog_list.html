@@ -5,12 +5,12 @@
     <a class="btn btn-outline-primary" href="{% url 'blog:create' %}">Добавить комментарий</a>
 </div>
 {% for object in object_list %}
-<div class="col-3">
+<div class="col-6">
     <div class="card mb-4 box-shadow">
         <div class="card-body">
-<!--            <h1 class="card-title pricing-card-title">{{ object.price_for_one }} руб.</h1>-->
+            <!--            <h1 class="card-title pricing-card-title">{{ object.price_for_one }} руб.</h1>-->
             <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                <div class="container px-4 text-center">
+                <div class="container px-6 text-center">
                     <div class="row gx-5">
                         <div class="col">
                             <h6 class="p-2">{{ object|title }}</h6>
@@ -24,7 +24,15 @@
                                 <a href="{% url 'blog:delete' object.pk %}"
                                    class="btn btn-sm btn-outline-secondary">Delete</a>
                             </div>
+                            {% if object.publication %}
+                            <a class="btn btn-warning"
+                               href="{% url 'blog:toggle_activity' object.pk %}">Деактивировать</a>
+                            {% else %}
+                            <a class="btn btn-success"
+                               href="{% url 'blog:toggle_activity' object.pk %}">Активировать</a>
+                            {% endif %}
                         </div>
+
                     </div>
                 </div>
                 <li>{{ object.description|truncatechars:50 }}</li>

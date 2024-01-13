@@ -8,14 +8,9 @@
             <div class="card-body">
                 <form method="post">
                     {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="success">
-                        {% if object %}
-                            Сохранить
-                        {% else %}
-                            Создать
-                        {% endif %}
-                    </button>
+                    <p>Хотите удалить продукт "{{ object.title }}"?</p>
+                    <button type="submit" class="btn btn-danger">Подтвердить</button>
+                    <a href="{% url 'catalog:list' %}" class="btn btn-warning">Отмена</a>
                 </form>
             </div>
         </div>
