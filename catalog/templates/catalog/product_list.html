@@ -19,9 +19,9 @@
                     <div class="row gx-5">
                         <div class="col">
                             <h5 class="p-2">{{ object.name }}</h5>
-                                {% for version in version_dict.object %}
-                                    <p>Версия: {{ version.version_number }}</p>
-                                    <p>Другое поле из Version: {{ version.version_name }}</p>
+                                {% for item in object.version_set.all %}
+                                    <p>Версия: {{ item.version_number }}</p>
+                                    <p>Название версии: {{ item.version_number }}</p>
                                 {% endfor %}
                             <h6 class="p-2">{{ object.category }}</h6>
                         </div>
