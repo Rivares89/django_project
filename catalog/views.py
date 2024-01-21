@@ -11,25 +11,13 @@ class ProductListView(ListView):
     model = Product
     # template_name = 'catalog/product_list.html'
 
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #
-    #     # Получаем все продукты
-    #     product_list = Product.objects.all()
-    #
-    #     # Создаем словарь, где ключ - это объект Product,
-    #     # а значение - это QuerySet всех связанных версий с current=True
-    #     version_dict = {
-    #         product: Version.objects.filter(name=product, current=True)
-    #         for product in product_list
-    #     }
-    #
-    #     # Добавляем информацию в контекст
-    #     context['version_dict'] = version_dict
-    #     context['title'] = 'Главная'
-    #
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        products = Product.objects.all()[:1]
+        for product in products:
+            product.active_version = product.version_set.filter(current=True).first()
+        context['products'] = products
+        return context
 
 
 def home(request):

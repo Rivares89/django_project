@@ -17,8 +17,6 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
 
     def clean_name(self):
         cleaned_data = self.cleaned_data['name']
-
-
         if cleaned_data in ERROR_NANE:
             raise forms.ValidationError('Такой продукт нельзя добавить')
 
