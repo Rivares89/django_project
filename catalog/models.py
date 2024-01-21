@@ -38,10 +38,12 @@ class Version(models.Model):
     version_number = models.IntegerField(verbose_name='номер версии')
     version_name = models.CharField(max_length=100, verbose_name='название версии')
 
-    current = models.BooleanField(default=True, verbose_name='признак текущей версии')
+    current = models.BooleanField(default=False, verbose_name='признак текущей версии')
 
     def __str__(self):
         return f'{self.name}.{self.version_number}'
+
+
 
     class Meta:
         verbose_name = 'версия'
