@@ -34,7 +34,7 @@ class Category(models.Model):
         ordering = ('name_c',)
 
 class Version(models.Model):
-    name = models.ForeignKey(Product, on_delete=models.CASCADE)
+    name = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='название')
     version_number = models.IntegerField(verbose_name='номер версии')
     version_name = models.CharField(max_length=100, verbose_name='название версии')
 
