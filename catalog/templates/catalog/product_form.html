@@ -30,7 +30,7 @@
                 Информация о продукте
             </h3>
             <div class="card-body">
-                {{ formset.management.form }}
+                {{ formset.management_form }}
                 {% for form in formset.forms %}
                     {{ form.as_p }}
                 {% endfor %}
