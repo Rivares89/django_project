@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 NULLABLE = {'blank': True, 'null': True}
@@ -9,6 +10,8 @@ class Product(models.Model):
     price_for_one = models.IntegerField(verbose_name='цена за штуку')
     date_creation = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
     last_modified_data = models.CharField(max_length=100, verbose_name='дата последнего изменения', **NULLABLE)
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='пользователь')
 
     def __str__(self):
         return f'{self.name} {self.category}'
@@ -34,7 +37,7 @@ class Category(models.Model):
         ordering = ('name_c',)
 
 class Version(models.Model):
-    name = models.ForeignKey(Product, on_delete=models.CASCADE)
+    name = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='название')
     version_number = models.IntegerField(verbose_name='номер версии')
     version_name = models.CharField(max_length=100, verbose_name='название версии')
 
