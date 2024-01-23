@@ -28,6 +28,10 @@
                             <td>Цена за штуку</td>
                             <td>{{ object.price_for_one }}</td>
                         </tr>
+                        <tr>
+                            <td>Добавил пользователь</td>
+                            <td>{{ object.user|default:"Админ" }}</td>
+                        </tr>
                     </table>
                     <p>
                         {{ object.content }}
