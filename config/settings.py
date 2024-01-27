@@ -142,6 +142,6 @@ LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = '*'
-EMAIL_HOST_PASSWORD = '*'
+EMAIL_HOST_USER = 'rivaresa2024@yandex.ru'
+EMAIL_HOST_PASSWORD = 'hjaicvgwgodaurky'
 EMAIL_USE_SSL = True
