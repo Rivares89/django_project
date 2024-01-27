@@ -22,6 +22,7 @@ from django.contrib.auth.tokens import default_token_generator as token_generato
 
 class MyLoginView(LoginView):
     form_class = AuthenticationForm
+
 class EmailVerify(View):
     def get(self, request, uidb64, token):
         user = self.get_user(uidb64)
