@@ -107,7 +107,7 @@ class ProfileView(UpdateView):
         return self.request.user
 
 def generate_new_password(request):
-    new_password = ''.join([str(random.randint(0, 9)) for _ in range(12)])
+    new_password = User.objects.make_random_password()
     send_mail(
         subject='Вы сменили пароль',
         message=f'Ваш новый пароль: {new_password}',
