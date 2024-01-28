@@ -25,8 +25,7 @@ class AuthenticationForm(DjangoAuthenticationForm):
                 raise ValidationError(
                     'Емэйл не подтвержден. Проверьте емэйл.',
                     code="invalid_login",
-
-        )
+                )
             if self.user_cache is None:
                 raise self.get_invalid_login_error()
             else:

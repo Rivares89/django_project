@@ -8,10 +8,12 @@ from users.views import RegisterView, ProfileView, generate_new_password, EmailV
 app_name = UsersConfig.name
 
 urlpatterns = [
-    path('login/', MyLoginView.as_view, name='my_login'),
+    # path('login/', MyLoginView.as_view(), name='my_login'),
     path('', LoginView.as_view(template_name='users/login.html'), name='login'),
 
-    path('invalid_verify/', TemplateView.as_view(template_name='invalid_verify'), name='invalid_verify'),
+    path('invalid_verify/', TemplateView.as_view(template_name='users/invalid_verify.html'), name='invalid_verify'),
+    path('valid_verify/', TemplateView.as_view(template_name='users/valid_verify.html'), name='valid_verify'),
+
 
     path(
         'verify_email/<uidb64>/<token>/',
@@ -19,7 +21,7 @@ urlpatterns = [
         name='verify_email',
     ),
     path('confirm_email/',
-         TemplateView.as_view(template_name='confirm_email.html'),
+         TemplateView.as_view(template_name='users/confirm_email.html'),
          name='confirm_email'
          ),
     path('logout/', LogoutView.as_view(), name='logout'),
