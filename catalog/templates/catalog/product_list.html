@@ -33,7 +33,6 @@
                 </div>
                 <li>{{ object.description|truncatechars:50 }}</li>
                 <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
-                {% if user.is_authenticated %}
                 <div class="btn-group">
                     <a href="{% url 'catalog:view' object.pk %}"
                        class="btn btn-sm btn-outline-secondary">View</a>
@@ -42,7 +41,6 @@
                     <a href="{% url 'catalog:delete_product' object.pk %}"
                             class="btn btn-sm btn-outline-secondary">Delete</a>
                 </div>
-                {% endif %}
             </ul>
         </div>
     </div>
