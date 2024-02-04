@@ -1,0 +1,25 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% block content %}
+
+{% for object in object_list %}
+<div class="col-3">
+    <div class="card mb-4 box-shadow">
+        <div class="card-body">
+            <h5 class="card-title pricing-card-title">{{ object.name_c }}</h5>
+            <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                <div class="container px-4 text-center">
+                    <div class="row gx-5">
+                        <div class="col">
+                            <h6 class="p-2">{{ object.name }}</h6>
+                        </div>
+                    </div>
+                </div>
+                <li>{{ object.description_c|truncatechars:50 }}</li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
