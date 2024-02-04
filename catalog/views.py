@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.cache import cache
 from django.forms import inlineformset_factory
 from django.http import Http404
 from django.shortcuts import render
@@ -6,7 +8,8 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from catalog.forms import ProductForm, VersionForm
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
+from catalog.services import get_categories_cache
 
 
 class ProductListView(ListView):
@@ -30,6 +33,13 @@ def home(request):
     }
     return render(request, 'catalog/product_list.html', context)
 
+def categories(request):
+    context = {
+        'object_list': get_categories_cache(),
+        'title': 'Категории'
+    }
+    return render(request, 'catalog/categories.html', context)
+
 def contact(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -47,6 +57,20 @@ def contact(request):
 class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     # template_name = 'catalog/product_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        if settings.CACHE_ENABLED:
+            key = f'version_list_{self.object.pk}'
+            version_list = cache.get(key)
+            if version_list is None:
+                version_list = self.object.version_set.all()
+                cache.set(key, version_list)
+            else:
+                version_list = self.object.version_set.all()
+
+        context_data['versions'] = version_list
+        return context_data
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
@@ -69,11 +93,22 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     success_url = reverse_lazy('catalog:list')
     permission_required = 'catalog.change_product'
 
-    def get_object(self, queryset=None):
-        self.object = super().get_object(queryset)
-        if self.object.user != self.request.user:
-            raise Http404
-        return self.object
+    def has_permission(self) -> bool:
+        perms = self.get_permission_required()
+        if self.request.user.has_perms(perms):
+            return True
+
+        product: Product = self.get_object()
+        if self.request.user == product.owner:
+            return True
+
+        return False
+
+    # def get_object(self, queryset=None):
+    #     self.object = super().get_object(queryset)
+    #     if self.object.user != self.request.user:
+    #         raise Http404
+    #     return self.object
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)

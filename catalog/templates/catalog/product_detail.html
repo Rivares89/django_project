@@ -42,9 +42,24 @@
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-2">
             <img src="/media/{{ object.image }}"/>
         </div>
+        <div class="col-4">
+        <div class="card">
+            <h3 class="card-header">
+                Информация о продукте
+            </h3>
+            <div class="card-body">
+            <ul>
+                {% for version in versions %}
+                <li>Версия {{ version.version_number }}</li>
+                <h6>{{ version.version_name }}</h6>
+                {% endfor %}
+            </ul>
+            </div>
+        </div>
+    </div>
     </div>
 </div>
 

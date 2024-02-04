@@ -11,7 +11,7 @@ class Product(models.Model):
     date_creation = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
     last_modified_data = models.CharField(max_length=100, verbose_name='дата последнего изменения', **NULLABLE)
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='пользователь')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='владелец')
 
     def __str__(self):
         return f'{self.name} {self.category}'
@@ -27,6 +27,7 @@ class Category(models.Model):
     name_c = models.CharField(max_length=100, verbose_name='название', default='DEFAULT VALUE')
     description_c = models.CharField(max_length=100, verbose_name='описание', default='DEFAULT VALUE')
     price_for_one = models.CharField(max_length=100, verbose_name='цена за штуку', default='DEFAULT VALUE')
+    # category = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='категор')
 
     def __str__(self):
         return f'{self.name_c} {self.description_c}'
